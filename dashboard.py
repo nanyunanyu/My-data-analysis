@@ -55,12 +55,21 @@ try:
     max_date = df['Order Date'].max().to_pydatetime()
     
     st.sidebar.subheader("📅 时间跨度")
-    date_range = st.sidebar.date_input(
-        "选择分析区间",
-        value=(min_date, max_date),
-        min_value=min_date,
-        max_value=max_date
-    )
+    col_start, col_end = st.sidebar.columns(2)
+    with col_start:
+        start_date = st.date_input(
+            "开始日期",
+            value=min_date,
+            min_value=min_date,
+            max_value=max_date
+        )
+    with col_end:
+        end_date = st.date_input(
+            "结束日期",
+            value=max_date,
+            min_value=min_date,
+            max_value=max_date
+        )
 
     # 联动过滤器
     st.sidebar.subheader("🔍 分类筛选")
@@ -79,8 +88,10 @@ try:
     )
 
     # 数据筛选逻辑
-    if len(date_range) == 2:
-        start_date, end_date = date_range
+    if start_date > end_date:
+        st.sidebar.error("⚠️ 开始日期不能晚于结束日期")
+        filtered_df = df.iloc[0:0] # 返回空数据
+    else:
         mask = (
             (df['Order Date'].dt.date >= start_date) & 
             (df['Order Date'].dt.date <= end_date) &
@@ -88,11 +99,9 @@ try:
             (df['Region'].isin(selected_regions))
         )
         filtered_df = df.loc[mask]
-    else:
-        filtered_df = df
 
     # --- 主界面设计 ---
-    st.title("� 高级电商销售分析 Dashboard")
+    st.title(" 电商销售分析 Dashboard")
     
     # KPI 核心指标 (带环比/对比概念，这里模拟一个对比值)
     col1, col2, col3, col4 = st.columns(4)
