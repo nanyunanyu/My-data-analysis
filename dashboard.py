@@ -113,13 +113,13 @@ try:
     profit_margin = (total_profit / total_sales) * 100 if total_sales != 0 else 0
 
     with col1:
-        st.metric("总销售额", f"¥{total_sales:,.0f}", delta=f"{(total_sales/1000000):.1f}M")
+        st.metric("总销售额", f"${total_sales:,.0f}", delta=f"{(total_sales/1000000):.1f}M")
     with col2:
-        st.metric("核心净利润", f"¥{total_profit:,.0f}", delta=f"{profit_margin:.1f}% 利润率")
+        st.metric("核心净利润", f"${total_profit:,.0f}", delta=f"{profit_margin:.1f}% 利润率")
     with col3:
         st.metric("累计订单量", f"{len(filtered_df):,}", delta=f"{total_quantity:,} 件商品")
     with col4:
-        st.metric("客单价 (AOV)", f"¥{avg_order_value:,.2f}")
+        st.metric("客单价 (AOV)", f"${avg_order_value:,.2f}")
 
     st.markdown("---")
 
