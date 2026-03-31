@@ -162,7 +162,7 @@ try:
 
     with tabs[2]:
         st.subheader("Top 10 核心产品表现")
-        top_n = st.slider("展示产品数量", 5, 20, 10)
+        top_n = st.slider("展示产品数量", 5, 10, 10)
         product_rank = filtered_df.groupby('Product Name').agg({
             'Sales': 'sum',
             'Profit': 'sum',
