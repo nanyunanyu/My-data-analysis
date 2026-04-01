@@ -1,4 +1,4 @@
-# 高级电商销售数据分析 Dashboard
+# 美国某市电商销售数据分析 Dashboard
 
 这是一个基于 Streamlit 和 Plotly 构建的交互式数据可视化系统。
 
